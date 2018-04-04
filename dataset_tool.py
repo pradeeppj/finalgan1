@@ -602,9 +602,9 @@ def create_from_images(tfrecord_dir, image_dir, shuffle):
         error('No input images found')
         
     img = np.asarray(PIL.Image.open(image_filenames[0]))
-    resolution = 256
-    channels = 1
-    #channels = img.shape[2] if img.ndim == 3 else 1
+    print(img.shape)
+    resolution == img.shape[0]
+    channels = img.shape[2] if img.ndim == 3 else 1
     #if img.shape[1] != resolution:
         
         #error('Input images must have the same width and height')
@@ -620,7 +620,7 @@ def create_from_images(tfrecord_dir, image_dir, shuffle):
             if channels == 1:
                 img = img[np.newaxis, :, :] # HW => CHW
             else:
-                img = img.transpose(2, 0, 1) # HWC => CHW
+                img = np.reshape(img,(256,256,3)) # HWC => CHW
             tfr.add_image(img)
 
 #----------------------------------------------------------------------------
